@@ -1357,7 +1357,8 @@ function buildVM(id,team){
     for(const ox of kd==='dual'?[0,-.3]:[0]){vb(g,.07,.08,.085,glove,ox+.004,-.07,.05);vb(g,.095,.095,.42,sleeve,ox+.03,-.15,.3,.32,0,0);}
     if(kd==='pistol'){vb(g,.06,.075,.08,glove,-.035,-.08,.045);vb(g,.095,.095,.42,sleeve,-.15,-.15,.3,.3,-.4,0);}}
   else{base=kd==='knife'?[.19,-.14,-.4]:[.18,-.15,-.4];vb(g,.08,.085,.09,glove,.012,kd==='nade'?-.03:-.005,kd==='nade'?.03:.06);vb(g,.1,.1,.44,sleeve,.03,-.15,.32,.32,0,0);}
-  const res={g,muzzle:gs.muz,my:gs.my,base};vmCache[key]=res;return res;
+  // у ножа отдельно храним саму модель: при осмотре и доставании крутится только он, а не кисть
+  const res={g,muzzle:gs.muz,my:gs.my,base,gun:gs.kind==='knife'?gc:null};vmCache[key]=res;return res;
 }
 let curVM=null,curVMKey='';
 function setVM(id,team){const key=id+team;if(key===curVMKey&&curVM)return;if(curVM)vmRoot.remove(curVM.g);curVM=buildVM(id,team);curVMKey=key;vmRoot.add(curVM.g);curVM.g.add(vmFlash);vmFlash.position.set(0,curVM.my,curVM.muzzle);}
@@ -2512,11 +2513,12 @@ function updateVM(dt){
   const hs=Math.hypot(h.vel.x,h.vel.z);const k=h.onGround?Math.min(1,hs/5):0;if(!reduceMotion)G.bobT+=dt*hs*1.8;
   const bx=Math.sin(G.bobT)*.012*k,by=-Math.abs(Math.cos(G.bobT))*.01*k;
   G.vmKick*=Math.exp(-dt*13);
-  let rx=G.vmKick*.14,ry=0,rz=0,py=0;
+  let rx=G.vmKick*.14,ry=0,rz=0,py=0,spin=0;
   const w=wdef(h);if(h.reloading>0&&w.reload){const p=1-h.reloading/w.reload,dip=Math.sin(p*Math.PI);rx-=dip*.7;py-=dip*.1;rz+=dip*.3;}
-  if(h.switchT>0){py-=h.switchT*.5;if(w.melee){const p=1-h.switchT/.45;rz+=(1-p)*(1-p)*Math.PI*4;}}
+  if(h.switchT>0){py-=h.switchT*.5;if(w.melee){const p=1-h.switchT/.45;spin+=(1-p)*(1-p)*Math.PI*4;}}
   if(G.inspT>0){G.inspT-=dt;if(h.switchT>0||h.reloading>0||mouseDown)G.inspT=0;const L=w.melee?1.5:1.2,p=clamp(1-G.inspT/L,0,1),s=Math.sin(p*Math.PI);
-    if(w.melee){const e=p<.5?2*p*p:1-Math.pow(-2*p+2,2)/2;rz+=e*Math.PI*4;rx-=s*.25;py+=s*.05;}else{ry+=s*.9;rz+=s*.35;py+=s*.03;}}
+    if(w.melee){const e=p<.5?2*p*p:1-Math.pow(-2*p+2,2)/2;spin+=e*Math.PI*4;rx-=s*.12;py+=s*.03;}else{ry+=s*.9;rz+=s*.35;py+=s*.03;}}
+  if(curVM.gun)curVM.gun.rotation.z=spin;
   if(h.planting>0||h.defusing>0)py-=.06;
   if(G.slashT>0){G.slashT-=dt;const p=1-G.slashT/.3,s=Math.sin(p*Math.PI);ry+=s*.9;rz-=s*.6;rx-=s*.3;}
   const b=curVM.base;vmRoot.position.set(b[0]+bx,b[1]+by+py,b[2]+G.vmKick*.07);vmRoot.rotation.set(rx,ry,rz);
