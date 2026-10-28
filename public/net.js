@@ -55,7 +55,8 @@
   }
 
   function connect() {
-    const url = (location.protocol === 'https:' ? 'wss://' : 'ws://') + location.host + '/ws';
+    // SF_SERVER is set by builds hosted elsewhere (Yandex Games) to reach our own server
+    const url = window.SF_SERVER || ((location.protocol === 'https:' ? 'wss://' : 'ws://') + location.host + '/ws');
     try { ws = new WebSocket(url); } catch (e) { return reconnectLater(); }
     const me = ws;
     ws.onopen = () => { me.send(JSON.stringify({ t: 'hello', peer: PEER, token })); };
