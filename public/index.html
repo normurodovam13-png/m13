@@ -269,11 +269,15 @@ details[open] summary{margin-bottom:10px}
 #icC4.flash{animation:c4f .5s steps(2) infinite} @keyframes c4f{50%{color:#ff2a1a}}
 #radar{width:156px;height:156px;border-radius:4px;border:1px solid rgba(255,160,0,.3);background:rgba(0,0,0,.3)}
 #score{display:none} #hud.dm #score{display:flex}
-#killfeed{font-family:Verdana,Tahoma,sans-serif;font-size:13px;font-weight:700;gap:3px}
-#killfeed .kf{background:none;padding:0;box-shadow:none;text-shadow:0 0 3px #000,0 0 2px #000,1px 1px 0 #000}
-#killfeed .kf .w{font-family:var(--f-num);font-size:19px;font-weight:600;color:#ffb02e;text-transform:uppercase}
-#killfeed .kf .hs{font-family:var(--f-num);font-size:17px;color:#ff3f3f}
-#killfeed .cct{color:var(--c16)} #killfeed .ctt{color:var(--t16)}
+#killfeed{font-family:var(--f-ui);font-size:14px;font-weight:700;gap:3px}
+#killfeed .kf{background:rgba(0,0,0,.6);padding:2px 9px;height:26px;box-sizing:border-box;border:2px solid transparent;border-radius:3px;gap:7px;box-shadow:none;text-shadow:none;animation:kfin .18s ease-out}
+#killfeed .kf.mine{border-color:#e0251b}
+#killfeed .kf.died{background:rgba(120,12,8,.78)}
+#killfeed .kf.out{opacity:0;transition:opacity .4s}
+#killfeed .kf svg{height:18px;fill:#ececec;flex:none;display:block}
+#killfeed .kf svg.x{height:16px}
+#killfeed .cct{color:#6f9ce6} #killfeed .ctt{color:#eabe54}
+@keyframes kfin{from{transform:translateX(24px);opacity:0}}
 #msg{font-family:Verdana,Tahoma,sans-serif;font-weight:700;font-size:clamp(18px,2.6vw,28px)}
 #sub{font-family:Verdana,Tahoma,sans-serif;font-size:14px;color:#ffd77a}
 #buy{left:50%;top:50%;transform:translate(-50%,-50%);width:min(700px,calc(100vw - 24px));max-height:88vh;background:rgba(0,0,0,.8);border:1px solid rgba(255,160,0,.55);border-radius:2px;padding:14px 16px;font-family:Verdana,Tahoma,sans-serif;gap:0}
@@ -466,7 +470,7 @@ details[open] summary{margin-bottom:10px}
             <kbd>Shift</kbd><span>тихий шаг</span>
             <kbd>Пробел</kbd><span>прыжок</span>
             <kbd>R</kbd><span>перезарядка</span>
-            <kbd>1 2 3 4 5</kbd><span>основное, пистолет, нож/Zeus, гранаты, C4</span>
+            <kbd>1 2 3 4 5</kbd><span>основное, пистолет, нож/шокер, гранаты, C4</span>
             <kbd>Q</kbd><span>прошлое оружие</span>
             <kbd>B</kbd><span>закупка (первые 20 секунд раунда)</span>
             <kbd>E</kbd><span>удерживать: заложить или обезвредить бомбу</span>
@@ -582,42 +586,42 @@ const SM_={cat:'smg',auto:true,fall:.85,spread:.018,moveSpread:.02,recoil:.008,r
 const HV_={cat:'heavy',fall:.7,spread:.01,recoil:.05,reload:3.2,speed:.88,reward:900,len:.95,snd:'shotgun'};
 const RF_={cat:'rifle',auto:true,fall:.98,spread:.007,moveSpread:.06,recoil:.014,reload:2.6,speed:.86,len:1,snd:'rifle'};
 const SN_={cat:'sniper',fall:.99,spread:.002,unscoped:.08,moveSpread:.12,recoil:.03,reload:3.6,speed:.84,len:1.3,snd:'awp',scope:20};
-W('glock',{...PI_,name:'Glock-18',team:'T',price:200,dmg:30,rate:.15,mag:20,reserve:120,armor:.47,vm:{k:'pistol',c:0x222222}});
-W('usps',{...PI_,name:'USP-S',team:'CT',price:200,dmg:35,rate:.17,mag:12,reserve:24,armor:.505,fall:.91,spread:.009,snd:'sil',len:.5,vm:{k:'pistol',c:0x2c2f33,sil:true}});
-W('p2000',{...PI_,name:'P2000',team:'CT',price:200,dmg:35,rate:.17,mag:13,reserve:52,armor:.505,fall:.91,vm:{k:'pistol',c:0x26292c}});
-W('dualies',{...PI_,name:'Dual Berettas',price:300,dmg:38,rate:.12,mag:30,reserve:120,armor:.525,fall:.75,spread:.014,reload:3.8,vm:{k:'dual',c:0x8d8f91}});
-W('p250',{...PI_,name:'P250',price:300,dmg:38,rate:.15,mag:13,reserve:26,armor:.64,recoil:.014,vm:{k:'pistol',c:0x3a3d40}});
-W('tec9',{...PI_,name:'Tec-9',team:'T',price:500,dmg:33,rate:.12,mag:18,reserve:90,armor:.906,fall:.83,spread:.014,recoil:.013,vm:{k:'pistol',c:0x303030,L:.26}});
-W('fiveseven',{...PI_,name:'Five-SeveN',team:'CT',price:500,dmg:32,rate:.15,mag:20,reserve:100,armor:.911,fall:.81,vm:{k:'pistol',c:0x4a4d42,L:.22}});
-W('cz75',{...PI_,name:'CZ75-Auto',price:500,dmg:31,rate:.1,mag:12,reserve:12,armor:.776,auto:true,reward:100,reload:2.7,vm:{k:'pistol',c:0x2b2b2b}});
-W('deagle',{...PI_,name:'Desert Eagle',price:700,dmg:53,rate:.225,mag:7,reserve:35,armor:.932,fall:.81,moveSpread:.06,recoil:.04,snd:'deagle',len:.45,vm:{k:'pistol',c:0x9a9c9e,L:.24,big:true}});
-W('r8',{...PI_,name:'R8 Revolver',price:600,dmg:86,rate:.5,mag:8,reserve:8,armor:.932,fall:.94,spread:.01,recoil:.05,snd:'deagle',len:.45,vm:{k:'pistol',c:0x5b5e60,L:.26,big:true}});
-W('mac10',{...SM_,name:'MAC-10',team:'T',price:1050,dmg:29,rate:.075,mag:30,reserve:100,armor:.575,fall:.8,spread:.02,len:.5,vm:{k:'long',c:0x2a2a2a,L:.42,mag:'straight',stock:false}});
-W('mp9',{...SM_,name:'MP9',team:'CT',price:1250,dmg:26,rate:.07,mag:30,reserve:120,armor:.6,len:.55,vm:{k:'long',c:0x222527,L:.46,mag:'straight',stock:false}});
-W('mp7',{...SM_,name:'MP7',price:1500,dmg:29,rate:.08,mag:30,reserve:120,armor:.625,vm:{k:'long',c:0x2b2d2f,L:.5,mag:'straight'}});
-W('mp5sd',{...SM_,name:'MP5-SD',price:1500,dmg:27,rate:.08,mag:30,reserve:120,armor:.625,snd:'sil',vm:{k:'long',c:0x2b2e30,L:.6,mag:'curved',sil:true}});
-W('ump45',{...SM_,name:'UMP-45',price:1200,dmg:35,rate:.09,mag:25,reserve:100,armor:.65,vm:{k:'long',c:0x26282a,L:.62,mag:'straight'}});
-W('p90',{...SM_,name:'P90',price:2350,dmg:26,rate:.07,mag:50,reserve:100,armor:.69,reward:300,vm:{k:'long',c:0x2e3236,L:.55,mag:'top',stock:false}});
-W('bizon',{...SM_,name:'PP-Bizon',price:1400,dmg:27,rate:.08,mag:64,reserve:120,armor:.575,vm:{k:'long',c:0x2a2a2a,c2:0x4a3a2a,L:.62,mag:'helix'}});
-W('nova',{...HV_,name:'Nova',price:1050,dmg:26,pellets:9,pspread:.07,rate:.88,mag:8,reserve:32,armor:.5,vm:{k:'long',c:0x3b3b3b,c2:0x6b4a2a,L:.85,mag:'none',pump:true}});
-W('xm1014',{...HV_,name:'XM1014',price:2000,dmg:20,pellets:6,pspread:.08,rate:.35,mag:7,reserve:32,armor:.8,auto:true,vm:{k:'long',c:0x2e2e2e,L:.88,mag:'none',pump:true}});
-W('sawedoff',{...HV_,name:'Sawed-Off',team:'T',price:1100,dmg:32,pellets:8,pspread:.1,rate:.85,mag:7,reserve:32,armor:.75,len:.7,vm:{k:'long',c:0x3a3a3a,c2:0x7a4a24,L:.6,mag:'none',pump:true}});
-W('mag7',{...HV_,name:'MAG-7',team:'CT',price:1300,dmg:30,pellets:5,pspread:.06,rate:.85,mag:5,reserve:32,armor:.75,len:.8,vm:{k:'long',c:0x2d3034,L:.66,mag:'straight',pump:true}});
-W('m249',{...RF_,cat:'heavy',name:'M249',price:5200,dmg:32,rate:.08,mag:100,reserve:200,armor:.8,spread:.012,moveSpread:.08,recoil:.012,reload:5.7,speed:.78,len:1.1,vm:{k:'long',c:0x2d3329,L:1,mag:'box'}});
-W('negev',{...RF_,cat:'heavy',name:'Negev',price:1700,dmg:35,rate:.075,mag:150,reserve:300,armor:.71,spread:.014,moveSpread:.08,recoil:.011,reload:5.7,speed:.78,len:1.1,vm:{k:'long',c:0x33352e,L:1,mag:'box'}});
-W('galil',{...RF_,name:'Galil AR',team:'T',price:1800,dmg:30,rate:.09,mag:35,reserve:90,armor:.775,spread:.009,vm:{k:'long',c:0x2f2f2b,c2:0x4d4a3c,L:.88,mag:'curved'}});
-W('famas',{...RF_,name:'FAMAS',team:'CT',price:1950,dmg:30,rate:.09,mag:25,reserve:90,armor:.7,spread:.008,vm:{k:'long',c:0x30353a,L:.8,mag:'straight',stock:false}});
-W('ak47',{...RF_,name:'AK-47',team:'T',price:2700,dmg:36,rate:.1,mag:30,reserve:90,armor:.775,recoil:.016,vm:{k:'long',c:0x2a2a2a,c2:0x7a4a24,L:.92,mag:'curved'}});
-W('m4a4',{...RF_,name:'M4A4',team:'CT',price:3100,dmg:33,rate:.09,mag:30,reserve:90,armor:.7,fall:.97,spread:.006,recoil:.013,snd:'rifle2',vm:{k:'long',c:0x30353a,c2:0x272b2f,L:.9,mag:'straight'}});
-W('m4a1s',{...RF_,name:'M4A1-S',team:'CT',price:2900,dmg:38,rate:.1,mag:20,reserve:80,armor:.7,fall:.99,spread:.005,recoil:.011,snd:'sil',vm:{k:'long',c:0x2c3135,c2:0x23272b,L:.88,mag:'straight',sil:true}});
-W('sg553',{...RF_,name:'SG 553',team:'T',price:3000,dmg:30,rate:.09,mag:30,reserve:90,armor:1,scope:45,vm:{k:'long',c:0x3a3c33,L:.9,mag:'curved',scope:true}});
-W('aug',{...RF_,name:'AUG',team:'CT',price:3300,dmg:28,rate:.09,mag:30,reserve:90,armor:.9,scope:45,vm:{k:'long',c:0x3d4535,L:.82,mag:'straight',scope:true,stock:false}});
-W('ssg08',{...SN_,name:'SSG 08',price:1700,dmg:88,rate:1.25,mag:10,reserve:90,armor:.85,fall:.98,unscoped:.06,moveSpread:.03,speed:.92,bolt:true,snd:'scout',len:1.15,vm:{k:'long',c:0x2c3238,L:1,mag:'straight',scope:true}});
-W('awp',{...SN_,name:'AWP',price:4750,dmg:115,rate:1.46,mag:5,reserve:30,armor:.975,unscoped:.09,moveSpread:.15,speed:.8,bolt:true,reward:100,vm:{k:'long',c:0x3d4a33,L:1.1,mag:'straight',scope:true}});
-W('g3sg1',{...SN_,name:'G3SG1',team:'T',price:5000,dmg:80,rate:.25,mag:20,reserve:90,armor:.825,scope:30,spread:.003,speed:.86,snd:'auto',vm:{k:'long',c:0x2c2c28,L:1,mag:'straight',scope:true}});
-W('scar20',{...SN_,name:'SCAR-20',team:'CT',price:5000,dmg:80,rate:.25,mag:20,reserve:90,armor:.825,scope:30,spread:.003,speed:.86,snd:'auto',vm:{k:'long',c:0x2a2d30,L:1,mag:'straight',scope:true}});
+W('glock',{...PI_,name:'Шакал-18',team:'T',price:200,dmg:30,rate:.15,mag:20,reserve:120,armor:.47,vm:{k:'pistol',c:0x222222}});
+W('usps',{...PI_,name:'Тень-12',team:'CT',price:200,dmg:35,rate:.17,mag:12,reserve:24,armor:.505,fall:.91,spread:.009,snd:'sil',len:.5,vm:{k:'pistol',c:0x2c2f33,sil:true}});
+W('p2000',{...PI_,name:'Страж-13',team:'CT',price:200,dmg:35,rate:.17,mag:13,reserve:52,armor:.505,fall:.91,vm:{k:'pistol',c:0x26292c}});
+W('dualies',{...PI_,name:'Близнецы',price:300,dmg:38,rate:.12,mag:30,reserve:120,armor:.525,fall:.75,spread:.014,reload:3.8,vm:{k:'dual',c:0x8d8f91}});
+W('p250',{...PI_,name:'Компакт-25',price:300,dmg:38,rate:.15,mag:13,reserve:26,armor:.64,recoil:.014,vm:{k:'pistol',c:0x3a3d40}});
+W('tec9',{...PI_,name:'Шершень-9',team:'T',price:500,dmg:33,rate:.12,mag:18,reserve:90,armor:.906,fall:.83,spread:.014,recoil:.013,vm:{k:'pistol',c:0x303030,L:.26}});
+W('fiveseven',{...PI_,name:'Пятёрка-57',team:'CT',price:500,dmg:32,rate:.15,mag:20,reserve:100,armor:.911,fall:.81,vm:{k:'pistol',c:0x4a4d42,L:.22}});
+W('cz75',{...PI_,name:'Вихрь-75',price:500,dmg:31,rate:.1,mag:12,reserve:12,armor:.776,auto:true,reward:100,reload:2.7,vm:{k:'pistol',c:0x2b2b2b}});
+W('deagle',{...PI_,name:'Варан .50',price:700,dmg:53,rate:.225,mag:7,reserve:35,armor:.932,fall:.81,moveSpread:.06,recoil:.04,snd:'deagle',len:.45,vm:{k:'pistol',c:0x9a9c9e,L:.24,big:true}});
+W('r8',{...PI_,name:'Барабан Р-8',price:600,dmg:86,rate:.5,mag:8,reserve:8,armor:.932,fall:.94,spread:.01,recoil:.05,snd:'deagle',len:.45,vm:{k:'pistol',c:0x5b5e60,L:.26,big:true}});
+W('mac10',{...SM_,name:'Москит-10',team:'T',price:1050,dmg:29,rate:.075,mag:30,reserve:100,armor:.575,fall:.8,spread:.02,len:.5,vm:{k:'long',c:0x2a2a2a,L:.42,mag:'straight',stock:false}});
+W('mp9',{...SM_,name:'Оса-9',team:'CT',price:1250,dmg:26,rate:.07,mag:30,reserve:120,armor:.6,len:.55,vm:{k:'long',c:0x222527,L:.46,mag:'straight',stock:false}});
+W('mp7',{...SM_,name:'Пчела-7',price:1500,dmg:29,rate:.08,mag:30,reserve:120,armor:.625,vm:{k:'long',c:0x2b2d2f,L:.5,mag:'straight'}});
+W('mp5sd',{...SM_,name:'Шёпот-5',price:1500,dmg:27,rate:.08,mag:30,reserve:120,armor:.625,snd:'sil',vm:{k:'long',c:0x2b2e30,L:.6,mag:'curved',sil:true}});
+W('ump45',{...SM_,name:'Бурав-45',price:1200,dmg:35,rate:.09,mag:25,reserve:100,armor:.65,vm:{k:'long',c:0x26282a,L:.62,mag:'straight'}});
+W('p90',{...SM_,name:'Улей-90',price:2350,dmg:26,rate:.07,mag:50,reserve:100,armor:.69,reward:300,vm:{k:'long',c:0x2e3236,L:.55,mag:'top',stock:false}});
+W('bizon',{...SM_,name:'Спираль-64',price:1400,dmg:27,rate:.08,mag:64,reserve:120,armor:.575,vm:{k:'long',c:0x2a2a2a,c2:0x4a3a2a,L:.62,mag:'helix'}});
+W('nova',{...HV_,name:'Гром-12',price:1050,dmg:26,pellets:9,pspread:.07,rate:.88,mag:8,reserve:32,armor:.5,vm:{k:'long',c:0x3b3b3b,c2:0x6b4a2a,L:.85,mag:'none',pump:true}});
+W('xm1014',{...HV_,name:'Шквал-7',price:2000,dmg:20,pellets:6,pspread:.08,rate:.35,mag:7,reserve:32,armor:.8,auto:true,vm:{k:'long',c:0x2e2e2e,L:.88,mag:'none',pump:true}});
+W('sawedoff',{...HV_,name:'Обрез',team:'T',price:1100,dmg:32,pellets:8,pspread:.1,rate:.85,mag:7,reserve:32,armor:.75,len:.7,vm:{k:'long',c:0x3a3a3a,c2:0x7a4a24,L:.6,mag:'none',pump:true}});
+W('mag7',{...HV_,name:'Таран-7',team:'CT',price:1300,dmg:30,pellets:5,pspread:.06,rate:.85,mag:5,reserve:32,armor:.75,len:.8,vm:{k:'long',c:0x2d3034,L:.66,mag:'straight',pump:true}});
+W('m249',{...RF_,cat:'heavy',name:'Молот-100',price:5200,dmg:32,rate:.08,mag:100,reserve:200,armor:.8,spread:.012,moveSpread:.08,recoil:.012,reload:5.7,speed:.78,len:1.1,vm:{k:'long',c:0x2d3329,L:1,mag:'box'}});
+W('negev',{...RF_,cat:'heavy',name:'Ливень-150',price:1700,dmg:35,rate:.075,mag:150,reserve:300,armor:.71,spread:.014,moveSpread:.08,recoil:.011,reload:5.7,speed:.78,len:1.1,vm:{k:'long',c:0x33352e,L:1,mag:'box'}});
+W('galil',{...RF_,name:'Сапсан',team:'T',price:1800,dmg:30,rate:.09,mag:35,reserve:90,armor:.775,spread:.009,vm:{k:'long',c:0x2f2f2b,c2:0x4d4a3c,L:.88,mag:'curved'}});
+W('famas',{...RF_,name:'Горн-25',team:'CT',price:1950,dmg:30,rate:.09,mag:25,reserve:90,armor:.7,spread:.008,vm:{k:'long',c:0x30353a,L:.8,mag:'straight',stock:false}});
+W('ak47',{...RF_,name:'Бархан-47',team:'T',price:2700,dmg:36,rate:.1,mag:30,reserve:90,armor:.775,recoil:.016,vm:{k:'long',c:0x2a2a2a,c2:0x7a4a24,L:.92,mag:'curved'}});
+W('m4a4',{...RF_,name:'Сокол-4',team:'CT',price:3100,dmg:33,rate:.09,mag:30,reserve:90,armor:.7,fall:.97,spread:.006,recoil:.013,snd:'rifle2',vm:{k:'long',c:0x30353a,c2:0x272b2f,L:.9,mag:'straight'}});
+W('m4a1s',{...RF_,name:'Сокол-С',team:'CT',price:2900,dmg:38,rate:.1,mag:20,reserve:80,armor:.7,fall:.99,spread:.005,recoil:.011,snd:'sil',vm:{k:'long',c:0x2c3135,c2:0x23272b,L:.88,mag:'straight',sil:true}});
+W('sg553',{...RF_,name:'Беркут-55',team:'T',price:3000,dmg:30,rate:.09,mag:30,reserve:90,armor:1,scope:45,vm:{k:'long',c:0x3a3c33,L:.9,mag:'curved',scope:true}});
+W('aug',{...RF_,name:'Ястреб-А',team:'CT',price:3300,dmg:28,rate:.09,mag:30,reserve:90,armor:.9,scope:45,vm:{k:'long',c:0x3d4535,L:.82,mag:'straight',scope:true,stock:false}});
+W('ssg08',{...SN_,name:'Стриж-08',price:1700,dmg:88,rate:1.25,mag:10,reserve:90,armor:.85,fall:.98,unscoped:.06,moveSpread:.03,speed:.92,bolt:true,snd:'scout',len:1.15,vm:{k:'long',c:0x2c3238,L:1,mag:'straight',scope:true}});
+W('awp',{...SN_,name:'Гадюка',price:4750,dmg:115,rate:1.46,mag:5,reserve:30,armor:.975,unscoped:.09,moveSpread:.15,speed:.8,bolt:true,reward:100,vm:{k:'long',c:0x3d4a33,L:1.1,mag:'straight',scope:true}});
+W('g3sg1',{...SN_,name:'Кречет-3',team:'T',price:5000,dmg:80,rate:.25,mag:20,reserve:90,armor:.825,scope:30,spread:.003,speed:.86,snd:'auto',vm:{k:'long',c:0x2c2c28,L:1,mag:'straight',scope:true}});
+W('scar20',{...SN_,name:'Скат-20',team:'CT',price:5000,dmg:80,rate:.25,mag:20,reserve:90,armor:.825,scope:30,spread:.003,speed:.86,snd:'auto',vm:{k:'long',c:0x2a2d30,L:1,mag:'straight',scope:true}});
 W('knife',{name:'Нож-бабочка',cat:'melee',slot:3,melee:true,dmg:40,rate:.42,range:2.1,speed:1,armor:.85,reward:1500,len:.3});
-W('zeus',{name:'Zeus x27',cat:'gear',slot:6,zeus:true,price:200,dmg:500,rate:.5,range:4.5,armor:1,reward:100,speed:.96,len:.3});
+W('zeus',{name:'Шокер-27',cat:'gear',slot:6,zeus:true,price:200,dmg:500,rate:.5,range:4.5,armor:1,reward:100,speed:.96,len:.3});
 W('he',{name:'Осколочная',cat:'nade',slot:4,nade:true,price:300,speed:.98,armor:.5,reward:300,len:.15});
 W('flash',{name:'Световая',cat:'nade',slot:4,nade:true,price:200,speed:.98,max:2,len:.15});
 W('smoke',{name:'Дымовая',cat:'nade',slot:4,nade:true,price:300,speed:.98,len:.15});
@@ -1206,67 +1210,206 @@ function MAG(g,c,x,y,z,w,th,n,seg,curve){let py=y,pz=z;for(let i=0;i<n;i++){cons
 function RAIL(g,x,y,z,len,c=0x1a1a1a){B(g,.022,.008,len,c,x,y,z);for(let t=-len/2+.01;t<len/2;t+=.02)B(g,.026,.006,.008,c,x,y+.006,z+t);}
 function GRIP(g,c,x=0,z=.05,len=.105){B(g,.036,len,.05,c,x,-.03-len/2,z,-.32);}
 function TG(g,c,z=-.02){B(g,.01,.008,.07,c,0,-.055,z);B(g,.01,.03,.008,c,0,-.04,z-.035);}
-function PISTOL(g,o){
-  const ox=o.ox||0,L=o.len||.19,H=o.h||.034;
-  B(g,.03,H,L,o.slide,ox,.035,.045-L/2);for(let i=0;i<4;i++)B(g,.031,H*.8,.004,0x111111,ox,.035,.03-i*.008);
-  B(g,.028,.022,L*.88,o.frame,ox,.008,.045-L*.44);B(g,.032,.115,.052,o.grip,ox,-.05,.035,-.28);
-  B(g,.008,.008,.055,o.frame,ox,-.02,-.035);B(g,.008,.025,.008,o.frame,ox,-.008,-.062);
-  B(g,.006,.012,.006,0x111111,ox,.056,.06-L);B(g,.012,.01,.006,0x111111,ox,.056,.035);
-  if(o.ext)B(g,.028,.04,.04,o.grip,ox,-.13,.06,-.28);
-  let muz=.045-L;if(o.sil){C(g,.017,.15,0x1b1b1b,ox,.035,muz-.075);muz-=.15;}return muz;
-}
 const K=0x1b1c1e,K2=0x2b2d30,PL=0x232426,WD=0x7b3f1f,WD2=0x8a5a30,BR=0x4e2f1c,TAN=0xa08c66,GR=0x3f4c31,SV=0xb4b6b8,SV2=0x8d8f92;
+// side profile extruded across the gun: pts are [z,y] pairs, w is the thickness along x (bevelled edges instead of plain boxes)
+function P(g,pts,w,c,x=0,holes,bv=.0012){
+  const V=p=>new THREE.Vector2(p[0],p[1]),s=new THREE.Shape(pts.map(V));
+  if(holes)for(const h of holes)s.holes.push(new THREE.Path(h.map(V)));
+  const geo=new THREE.ExtrudeGeometry(s,{depth:Math.max(.0005,w-2*bv),bevelEnabled:bv>0,bevelThickness:bv,bevelSize:bv,bevelSegments:1,curveSegments:3});
+  geo.rotateY(-Math.PI/2);geo.translate(x+w/2-bv,0,0);const m=new THREE.Mesh(geo,Mt(c));g.add(m);return m;
+}
+// outline of a magazine bending forward: top centre (z0,y0), depth w, length len, total bend curve (rad)
+function CMAG(z0,y0,w,len,curve,n=8){const bk=[],fr=[];let z=z0,y=y0;
+  for(let i=0;i<=n;i++){const a=curve*i/n,c=Math.cos(a),s=Math.sin(a);bk.push([z+c*w/2,y-s*w/2]);fr.push([z-c*w/2,y+s*w/2]);const m=a+curve/n/2;z-=Math.sin(m)*len/n;y-=Math.cos(m)*len/n;}
+  return bk.concat(fr.reverse());}
+// rifle pistol grip with finger bump and ridges
+function RGRIP(g,c,z=.045,top=-.035,len=.105,a=.32,w=.034,d=.04){
+  const s=Math.sin(a),k=Math.cos(a),f0=[z-d/2,top],F=t=>[f0[0]+len*s*t,top-len*k*t],f1=F(1);
+  P(g,[f0,F(.3),[F(.42)[0]-.004,F(.42)[1]],F(.55),f1,[f1[0]+d*.5,f1[1]-.004],[f1[0]+d,f1[1]+.002],[z+d/2+len*s*.4+.004,top-len*k*.4],[z+d/2+.004,top]],w,c);
+  for(let i=0;i<5;i++){const p=F(.25+i*.15);B(g,w+.0006,.0022,d*.7,0x101010,0,p[1],p[0]+d*.5,-a);}
+}
+// trigger guard with an opening, plus trigger
+function RTG(g,c,z0=.02,z1=-.06,y=-.035,h=.03){
+  P(g,[[z0,y],[z1,y],[z1-.006,y-h*.6],[z1+.01,y-h],[z0,y-h]],.012,c,0,[[[z0-.006,y-.004],[z1+.004,y-.004],[z1+.01,y-h+.005],[z0-.006,y-h+.005]]]);
+  B(g,.006,.022,.006,K,0,y-.014,(z0+z1)/2+.008,.2);
+}
+// flash hider: cylinder with slots
+function FH(g,r,len,z,y,c=K){C(g,r,len,c,0,y,z);for(let i=0;i<3;i++)B(g,r*2.05,.003,len*.6,0x080808,0,y,z,0,0,i*Math.PI/3);C(g,r*.45,.004,0x040404,0,y,z-len/2-.001);}
+// rifle scope: tube, objective bell, eyepiece, turrets, lenses, rings down to y=base
+function SCOPE(g,y,z,L,R,c=K,base){
+  C(g,R*.6,L*.56,c,0,y,z);C(g,R,L*.18,c,0,y,z-L*.37,R*.6);C(g,R,L*.06,c,0,y,z-L*.49);C(g,R*.85,.003,MAT_GLASS,0,y,z-L*.521);
+  C(g,R*.6,L*.14,c,0,y,z+L*.35,R*.8);C(g,R*.7,.003,MAT_GLASS,0,y,z+L*.421);
+  CV(g,R*.36,R*.5,c,0,y+R*.75,z);const t=CV(g,R*.36,R*.5,c,R*.75,y,z);t.rotation.z=Math.PI/2;
+  if(base!==undefined)for(const s of[-1,1]){const zz=z+s*L*.18;C(g,R*.68,.012,K,0,y,zz);B(g,R*.9,y-base,.016,K,0,(y+base)/2,zz);}
+}
+// folding skeleton stock (Galil / SG)
+function SKEL(g,c,z0=.1,z1=.36){
+  for(const x of[-.016,.016]){P(g,[[z0,.03],[z0,.016],[z1,.002],[z1,.016]],.01,c,x);P(g,[[z0,-.014],[z0,-.028],[z1,-.072],[z1,-.058]],.01,c,x);}
+  P(g,[[z1-.012,.03],[z1-.012,-.085],[z1+.012,-.09],[z1+.012,.03]],.05,c);
+}
+// pistol: slide (serrations, sights, port, bore) + frame with trigger guard + angled ridged grip.
+// o: len,h,w,slide,frame,grip,a (grip angle),gl,gd,hm (hammer),rail,sil,ext (long mag),open (Beretta slide cut),ox
+function PST(g,o){
+  const ox=o.ox||0,L=o.len||.19,H=o.h||.034,w=o.w||1,zr=.045,zf=zr-L,yb=.017,yt=yb+H,a=o.a||.3,sa=Math.sin(a),ca=Math.cos(a);
+  const sp=o.open?[[zr,yb],[zr,yt-.003],[zr-.004,yt],[zr-L*.42,yt],[zr-L*.46,yt-.011],[zf+.022,yt-.011],[zf+.016,yt-.004],[zf+.004,yt-.004],[zf,yt-.008],[zf,yb]]
+    :[[zr,yb],[zr,yt-.003],[zr-.004,yt],[zf+.007,yt],[zf,yt-.007],[zf,yb]];
+  P(g,sp,.03*w,o.slide,ox);
+  for(let i=0;i<5;i++)B(g,.0305*w,H*.62,.0022,0x101010,ox,yb+H*.45,zr-.009-i*.0058);
+  if(o.open)C(g,.0075,L*.5,SV2,ox,yt-.011,zf+L*.3);else B(g,.002,.011,L*.22,0x0b0b0b,ox+.015*w,yt-.008,zr-L*.42);
+  B(g,.017*w,.007,.006,0x111111,ox,yt+.0033,zr-.006);for(const s of[-1,1])B(g,.004,.003,.0015,0xeeeeee,ox+s*.005*w,yt+.004,zr-.0092);
+  B(g,.005,.007,.006,0x111111,ox,yt+.0033,zf+.008);B(g,.0035,.003,.0015,0xeeeeee,ox,yt+.004,zf+.0048);
+  const by=yb+H*.52;C(g,.0072,.004,0x2c2c2c,ox,by,zf-.001);C(g,.0045,.003,0x040404,ox,by,zf-.003);
+  const ft=[.012,yb-.032],gl=o.gl||.105,D=o.gd||.046,fb=[ft[0]+gl*sa,ft[1]-gl*ca],bb=[fb[0]+D*ca,fb[1]+D*sa];
+  P(g,[[zr+.007,yb],[zf+.012,yb],[zf+.012,yb-.017],[-.046,yb-.02],[-.052,yb-.03],[-.051,yb-.043],[-.044,yb-.05],[-.01,yb-.05],[.004,yb-.04],ft,fb,bb,[zr+.004,yb-.014]],.028*w,o.frame,ox,
+    [[[-.041,yb-.024],[-.045,yb-.031],[-.044,yb-.04],[-.039,yb-.045],[-.009,yb-.045],[.002,yb-.035],[-.002,yb-.024]]]);
+  const G=(t,u)=>[ft[0]+gl*sa*t+D*ca*u,ft[1]-gl*ca*t+D*sa*u];
+  P(g,[G(.12,.08),G(.93,.08),G(.93,.9),G(.12,.92)],.033*w,o.grip,ox);
+  for(let i=0;i<6;i++){const p=G(.2+i*.13,.5);B(g,.0336*w,.0022,D*.75,0x0f0f0f,ox,p[1],p[0],-a);}
+  {const m=G(1.04,.5),ml=o.ext?.045:.008;B(g,.03*w,ml,D*1.02,o.ext?o.grip:0x151515,ox,m[1]-ca*ml/2,m[0]+sa*ml/2,-a);}
+  B(g,.006,.019,.006,0x151515,ox,yb-.031,-.019,.32);
+  B(g,.003,.005,.03,0x151515,ox-.0145*w,yb-.006,-.008);
+  if(o.hm)P(g,[[zr+.003,yt-.013],[zr+.013,yt-.004],[zr+.017,yt-.008],[zr+.006,yb+.002]],.008,0x151515,ox);
+  if(o.rail)for(let i=0;i<3;i++)B(g,.0285*w,.0035,.004,0x0c0c0c,ox,yb-.0155,zf+.02+i*.011);
+  let muz=zf;
+  if(o.sil){const sl=.15;C(g,.0165,sl,0x1d1e20,ox,by,muz-sl/2,undefined,14);for(const t of[.012,sl-.012])C(g,.0172,.006,0x111111,ox,by,muz-t,undefined,14);C(g,.006,.004,0x040404,ox,by,muz-sl-.001);muz-=sl;}
+  return muz;
+}
+// AR-style lower + upper receiver, grip, mag, buffer tube and stock (both M4s)
+function M4BASE(g){
+  const LW=0x26282b;
+  P(g,[[.072,.016],[.072,-.026],[.055,-.04],[-.028,-.04],[-.07,-.034],[-.142,-.034],[-.152,-.008],[-.158,.016]],.046,LW);
+  P(g,[[-.068,-.03],[-.07,-.066],[-.138,-.066],[-.142,-.03]],.044,LW);
+  P(g,[[.078,.016],[.078,.064],[.07,.068],[-.205,.068],[-.205,.016]],.05,K2);
+  B(g,.002,.016,.06,0x0e0e0e,.026,.036,-.055);B(g,.01,.01,.016,K,.03,.05,0);C(g,.008,.016,K,.027,.044,.04);
+  B(g,.032,.012,.022,K,0,.055,.09);B(g,.008,.012,.014,K,.024,-.012,-.11);
+  RAIL(g,0,.074,-.065,.27);
+  P(g,[[.06,.078],[.06,.1],[.045,.1],[.032,.078]],.022,K);B(g,.023,.008,.004,0x050505,0,.094,.054);
+  RGRIP(g,PL,.05,-.036,.11,.32);RTG(g,LW,.025,-.058,-.036,.028);
+  P(g,CMAG(-.104,-.064,.064,.16,.2,6),.028,0x2b2b2b);
+  C(g,.017,.2,K2,0,.026,.17);C(g,.022,.012,K,0,.026,.077);
+  P(g,[[.19,.052],[.37,.052],[.39,.044],[.392,-.064],[.375,-.07],[.33,-.04],[.24,-.012],[.19,-.004]],.05,PL);
+  B(g,.054,.12,.012,0x111111,0,-.008,.393);
+}
 const GUN_BUILD={
-  ak47:g=>{B(g,.056,.07,.38,K,0,0,-.07);B(g,.05,.025,.33,K2,0,.046,-.06);B(g,.03,.028,.05,K,0,.046,-.255);
-    B(g,.062,.062,.21,WD,0,-.002,-.37);B(g,.046,.034,.17,WD,0,.05,-.355);C(g,.011,.14,K,0,.05,-.51);C(g,.012,.42,K,0,.012,-.6);
-    B(g,.016,.05,.022,K,0,.045,-.74);C(g,.017,.05,K,0,.012,-.8);B(g,.008,.012,.03,K,.03,.03,-.02);
-    MAG(g,0x262626,0,-.035,-.13,.05,.085,6,.045,.13);GRIP(g,BR,0,.045);TG(g,K);
-    B(g,.05,.075,.27,WD,0,-.03,.27,.13);B(g,.052,.09,.02,K,0,-.05,.405,.13);return{muz:-.83,hz:-.37};},
-  m4a4:g=>{B(g,.05,.055,.2,K,0,-.012,-.04);B(g,.052,.05,.27,K2,0,.042,-.07);RAIL(g,0,.072,-.07,.26);B(g,.02,.04,.03,K,0,.092,.04);
-    C(g,.034,.25,K2,0,.035,-.33,undefined,10);RAIL(g,0,.072,-.33,.24);C(g,.011,.26,K,0,.035,-.57);
-    B(g,.03,.02,.035,K,0,.06,-.48);B(g,.016,.05,.012,K,0,.085,-.48);C(g,.016,.055,K,0,.035,-.72);
-    B(g,.046,.045,.08,K,0,-.055,-.1);MAG(g,0x2b2b2b,0,-.075,-.1,.028,.072,4,.045,.06);GRIP(g,PL,0,.055);TG(g,K);
-    C(g,.016,.18,K,0,.02,.2);B(g,.05,.085,.13,PL,0,-.005,.29);B(g,.052,.03,.1,PL,0,.045,.28);return{muz:-.75,hz:-.33};},
-  m4a1s:g=>{B(g,.05,.055,.2,K,0,-.012,-.04);B(g,.052,.05,.27,K2,0,.042,-.07);RAIL(g,0,.072,-.07,.26);B(g,.02,.04,.03,K,0,.092,.04);
-    C(g,.029,.2,K2,0,.035,-.3,undefined,10);C(g,.011,.1,K,0,.035,-.45);C(g,.024,.26,0x2d2f31,0,.035,-.63,undefined,14);B(g,.016,.04,.012,K,0,.08,-.38);
-    B(g,.046,.045,.08,K,0,-.055,-.1);MAG(g,0x2b2b2b,0,-.075,-.1,.028,.072,3,.045,.05);GRIP(g,PL,0,.055);TG(g,K);
-    C(g,.016,.18,K,0,.02,.2);B(g,.05,.085,.13,PL,0,-.005,.29);return{muz:-.76,hz:-.3};},
-  galil:g=>{B(g,.056,.08,.34,K,0,0,-.06);B(g,.05,.02,.3,K2,0,.05,-.06);B(g,.06,.06,.2,WD2,0,0,-.34);
-    B(g,.014,.02,.12,K,0,.085,-.1);B(g,.014,.03,.012,K,0,.07,-.04);B(g,.014,.03,.012,K,0,.07,-.16);
-    C(g,.012,.36,K,0,.015,-.55);B(g,.016,.06,.02,K,0,.05,-.6);C(g,.016,.06,K,0,.015,-.75);
-    MAG(g,0x262626,0,-.04,-.12,.05,.08,7,.045,.11);GRIP(g,PL,0,.05);TG(g,K);
-    B(g,.012,.012,.25,K,0,.02,.24);B(g,.012,.012,.26,K,0,-.055,.24,.15);B(g,.05,.11,.025,K,0,-.02,.37);return{muz:-.78,hz:-.34};},
-  famas:g=>{B(g,.062,.1,.52,K2,0,0,.04);B(g,.05,.045,.2,PL,0,-.06,.22);B(g,.024,.03,.42,K,0,.108,-.01);B(g,.024,.06,.03,K,0,.07,.18);B(g,.024,.06,.03,K,0,.07,-.2);
-    B(g,.056,.06,.12,PL,0,-.005,-.27);C(g,.011,.2,K,0,.02,-.42);C(g,.019,.08,K,0,.02,-.54);
-    B(g,.035,.1,.045,PL,0,-.08,0,-.25);B(g,.012,.012,.12,K,0,-.06,-.06);MAG(g,0x262626,0,-.05,.1,.025,.07,3,.045,0);
-    B(g,.008,.008,.2,K,.024,-.04,-.25);B(g,.008,.008,.2,K,-.024,-.04,-.25);return{muz:-.58,hz:-.27,my:.02};},
-  sg553:g=>{const c1=0x48493e,c2=0x6b6448;B(g,.056,.085,.34,c1,0,0,-.05);B(g,.06,.065,.2,c2,0,0,-.33);C(g,.012,.3,K,0,.02,-.55);C(g,.016,.05,K,0,.02,-.72);
-    B(g,.03,.03,.07,K,0,.06,-.08);C(g,.027,.16,K,0,.1,-.08);C(g,.033,.04,K,0,.1,-.18);B(g,.03,.03,.003,MAT_GLASS,0,.1,-.201);
-    MAG(g,0x34352d,0,-.045,-.12,.048,.08,6,.045,.1);GRIP(g,PL,0,.05);TG(g,K);
-    B(g,.012,.012,.24,K,0,.02,.24);B(g,.012,.012,.24,K,0,-.06,.24,.12);B(g,.045,.1,.02,K,0,-.02,.36);return{muz:-.75,hz:-.33,my:.02};},
-  aug:g=>{const c=0x56623f;B(g,.07,.1,.5,c,0,-.01,.07);B(g,.062,.07,.12,c,0,0,-.23);B(g,.04,.04,.22,c,0,.075,-.03);C(g,.022,.26,K,0,.105,-.03);B(g,.03,.03,.003,MAT_GLASS,0,.105,-.161);
-    C(g,.012,.24,K,0,.01,-.4);C(g,.016,.05,K,0,.01,-.54);B(g,.03,.1,.035,c,0,-.08,-.18,.15);B(g,.035,.1,.045,c,0,-.08,0,-.25);
-    B(g,.012,.012,.22,c,0,-.135,-.08);MAG(g,MAT_T,0,-.06,.1,.025,.065,3,.045,.04);B(g,.064,.07,.05,K,0,-.03,.32);return{muz:-.57,hz:-.18,my:.01};},
-  awp:g=>{B(g,.06,.07,.34,GR,0,-.01,-.05);B(g,.058,.06,.24,GR,0,-.005,-.34);B(g,.055,.05,.3,GR,0,0,.28);B(g,.055,.04,.22,GR,0,-.09,.32);B(g,.056,.15,.05,GR,0,-.04,.44);B(g,.058,.16,.012,K,0,-.04,.468);
-    B(g,.04,.12,.05,GR,0,-.06,.07,-.3);TG(g,K,0);B(g,.045,.045,.22,K,0,.045,-.03);B(g,.07,.012,.012,K,.04,.05,.06);B(g,.022,.022,.022,K,.075,.05,.06);
-    C(g,.013,.55,K,0,.03,-.72);C(g,.02,.07,K,0,.03,-1.0);
-    C(g,.028,.3,K,0,.12,-.07);C(g,.042,.08,K,0,.12,-.26,.03);C(g,.035,.05,K,0,.12,.1,.03);B(g,.06,.06,.003,MAT_GLASS,0,.12,-.301);
-    B(g,.026,.03,.026,K,0,.158,-.07);B(g,.03,.026,.026,K,.034,.12,-.07);B(g,.03,.06,.02,K,0,.08,-.15);B(g,.03,.06,.02,K,0,.08,.02);
-    B(g,.04,.05,.07,K,0,-.05,-.06);return{muz:-1.04,hz:-.34};},
-  ssg08:g=>{const c=0x2d3237;B(g,.05,.06,.3,c,0,-.01,-.05);B(g,.048,.05,.26,c,0,-.005,-.33);B(g,.045,.04,.2,c,0,-.01,.27);B(g,.045,.14,.04,c,0,-.05,.39);B(g,.012,.012,.18,c,0,-.09,.28);
-    B(g,.036,.11,.045,c,0,-.06,.07,-.3);TG(g,K,0);B(g,.04,.04,.2,K,0,.04,-.03);B(g,.06,.01,.01,K,.035,.045,.05);
-    C(g,.011,.52,K,0,.025,-.68);C(g,.016,.05,K,0,.025,-.95);
-    C(g,.024,.26,K,0,.105,-.07);C(g,.034,.06,K,0,.105,-.23,.024);C(g,.03,.04,K,0,.105,.08,.024);B(g,.045,.045,.003,MAT_GLASS,0,.105,-.261);
-    B(g,.022,.024,.022,K,0,.135,-.07);B(g,.026,.05,.018,K,0,.07,-.15);B(g,.026,.05,.018,K,0,.07,.02);
-    B(g,.036,.05,.06,K,0,-.05,-.06);return{muz:-.98,hz:-.33,my:.025};},
-  g3sg1:g=>{B(g,.056,.085,.38,K,0,0,-.06);B(g,.062,.065,.22,K2,0,0,-.38);C(g,.013,.36,K,0,.02,-.62);C(g,.017,.06,K,0,.02,-.82);
-    B(g,.055,.09,.3,PL,0,-.02,.3);B(g,.05,.03,.15,PL,0,.045,.3);GRIP(g,PL,0,.05);TG(g,K);MAG(g,K,0,-.045,-.1,.04,.07,4,.045,.02);
-    C(g,.025,.26,K,0,.105,-.08);C(g,.035,.06,K,0,.105,-.24,.025);C(g,.03,.04,K,0,.105,.07,.025);B(g,.045,.045,.003,MAT_GLASS,0,.105,-.271);B(g,.03,.05,.02,K,0,.07,-.16);B(g,.03,.05,.02,K,0,.07,.02);
-    return{muz:-.85,hz:-.38,my:.02};},
-  scar20:g=>{B(g,.056,.06,.4,TAN,0,.04,-.09);B(g,.05,.06,.2,K,0,-.015,-.03);RAIL(g,0,.074,-.09,.38);B(g,.06,.06,.2,TAN,0,.035,-.39);C(g,.013,.3,K,0,.03,-.62);C(g,.017,.06,K,0,.03,-.8);
-    B(g,.05,.09,.22,TAN,0,0,.27);B(g,.054,.03,.12,K,0,.05,.27);GRIP(g,K,0,.055);TG(g,K);B(g,.042,.045,.07,K,0,-.055,-.1);MAG(g,K,0,-.075,-.1,.032,.07,3,.045,.02);
-    C(g,.025,.26,K,0,.12,-.1);C(g,.035,.06,K,0,.12,-.26,.025);C(g,.03,.04,K,0,.12,.05,.025);B(g,.045,.045,.003,MAT_GLASS,0,.12,-.291);B(g,.03,.04,.02,K,0,.095,-.18);B(g,.03,.04,.02,K,0,.095,0);
-    return{muz:-.84,hz:-.39};},
+  ak47:g=>{P(g,[[.11,.034],[.11,-.028],[.09,-.036],[-.252,-.036],[-.252,.034]],.054,K);
+    P(g,[[.108,.034],[.112,.046],[.096,.062],[-.19,.062],[-.205,.05],[-.205,.034]],.05,K2);B(g,.051,.006,.012,K,0,.063,.085);
+    P(g,[[-.205,.034],[-.205,.06],[-.258,.058],[-.278,.034]],.036,K);B(g,.03,.008,.05,K,0,.064,-.24);B(g,.006,.012,.006,K,0,.072,-.26);
+    B(g,.003,.014,.11,0x1f1f1f,.0285,.018,-.03,.06);B(g,.03,.008,.008,K,.03,.041,-.17);B(g,.012,.014,.014,K,.048,.041,-.17);
+    P(g,[[-.262,.03],[-.262,-.026],[-.282,-.034],[-.45,-.03],[-.468,-.018],[-.472,.03]],.062,WD);for(const y of[-.006,-.018])B(g,.0625,.003,.13,0x5a2c14,0,y,-.37);
+    P(g,[[-.268,.036],[-.268,.06],[-.29,.067],[-.43,.064],[-.448,.054],[-.448,.036]],.044,WD);
+    C(g,.0105,.07,K,0,.052,-.485);P(g,[[-.5,0],[-.5,.064],[-.528,.064],[-.528,0]],.032,K);C(g,.012,.3,K,0,.014,-.66);
+    P(g,[[-.7,.005],[-.7,.028],[-.712,.07],[-.736,.07],[-.744,.028],[-.744,.005]],.022,K,0,[[[-.715,.04],[-.719,.064],[-.73,.064],[-.734,.04]]]);B(g,.004,.02,.004,K,0,.055,-.724);
+    C(g,.017,.055,K,0,.014,-.79);B(g,.036,.004,.03,0x080808,0,.03,-.8);
+    P(g,CMAG(-.13,-.034,.058,.2,.55,8),.05,0x2a2a2a);
+    RGRIP(g,BR,.045,-.036,.105,.34);RTG(g,K,.02,-.076,-.036,.03);
+    P(g,[[.11,.03],[.11,-.03],[.2,-.052],[.4,-.098],[.4,0],[.37,.008],[.2,.022]],.046,WD);
+    P(g,[[.4,.002],[.4,-.1],[.412,-.102],[.412,.004]],.05,K);return{muz:-.82,hz:-.37};},
+  m4a4:g=>{M4BASE(g);
+    C(g,.034,.25,K2,0,.036,-.33,undefined,8);RAIL(g,0,.074,-.33,.24);for(let i=0;i<4;i++)B(g,.0705,.012,.035,0x111111,0,.034,-.245-i*.058);
+    C(g,.011,.25,K,0,.036,-.57);
+    P(g,[[-.468,.022],[-.468,.05],[-.476,.1],[-.49,.1],[-.5,.05],[-.5,.022]],.02,K,0,[[[-.475,.06],[-.48,.088],[-.487,.088],[-.492,.06]]]);B(g,.004,.014,.004,K,0,.098,-.483);
+    FH(g,.016,.055,-.722,.036);return{muz:-.75,hz:-.33};},
+  m4a1s:g=>{M4BASE(g);
+    C(g,.03,.2,K2,0,.036,-.305,undefined,12);for(let i=0;i<5;i++)B(g,.0615,.008,.022,0x111111,0,.036,-.23-i*.035);B(g,.016,.008,.18,K,0,.068,-.3);
+    C(g,.011,.08,K,0,.036,-.44);
+    C(g,.024,.27,0x2d2f31,0,.036,-.61,undefined,16);for(const z of[-.48,-.74])C(g,.0248,.012,0x1a1a1a,0,.036,z,undefined,16);C(g,.007,.004,0x040404,0,.036,-.747);
+    B(g,.012,.03,.012,K,0,.08,-.385);return{muz:-.75,hz:-.3};},
+  galil:g=>{P(g,[[.1,.04],[.1,-.03],[.085,-.04],[-.235,-.04],[-.235,.04]],.056,K);
+    P(g,[[.095,.04],[.098,.05],[.085,.056],[-.2,.056],[-.215,.046],[-.215,.04]],.05,K2);
+    P(g,[[-.04,.056],[-.05,.09],[-.17,.09],[-.18,.056]],.016,K,0,[[[-.06,.06],[-.065,.08],[-.155,.08],[-.162,.06]]]);B(g,.012,.02,.012,K,0,.068,-.015);
+    B(g,.003,.014,.1,0x1f1f1f,.029,.015,-.03);B(g,.03,.008,.008,K,.03,.045,-.16);B(g,.008,.024,.008,K,.044,.054,-.16);
+    P(g,[[-.24,.034],[-.24,-.034],[-.26,-.04],[-.43,-.034],[-.44,-.02],[-.44,.034],[-.42,.04],[-.26,.04]],.062,WD2);for(let i=0;i<5;i++)B(g,.0625,.006,.016,0x3d2a18,0,.008,-.28-i*.032);
+    C(g,.012,.36,K,0,.015,-.6);C(g,.01,.06,K,0,.05,-.47);P(g,[[-.58,0],[-.58,.03],[-.59,.075],[-.612,.075],[-.62,.03],[-.62,0]],.022,K);
+    FH(g,.016,.06,-.75,.015);P(g,CMAG(-.125,-.04,.06,.2,.42,8),.05,0x262626);
+    RGRIP(g,PL,.05,-.04,.105,.32);RTG(g,K,.02,-.08,-.04,.03);SKEL(g,K);return{muz:-.78,hz:-.34};},
+  famas:g=>{P(g,[[.31,.046],[.315,-.04],[.3,-.052],[.16,-.045],[.12,-.03],[-.2,-.03],[-.255,-.02],[-.265,.012],[-.255,.04],[-.2,.048]],.062,K2);B(g,.0625,.003,.36,0x151515,0,.002,.04);
+    P(g,[[.2,.046],[.18,.108],[.15,.114],[-.16,.114],[-.19,.108],[-.21,.046]],.026,K,0,[[[.15,.055],[.14,.098],[-.15,.098],[-.17,.055]]]);
+    B(g,.02,.012,.01,K,0,.12,.17);B(g,.008,.014,.006,K,0,.122,-.18);B(g,.008,.03,.03,K,0,.07,-.02);
+    P(g,[[.012,-.03],[.044,-.03],[.065,-.13],[.03,-.138],[.018,-.1]],.036,PL);
+    P(g,[[-.05,-.03],[-.06,-.06],[-.035,-.142],[.028,-.15],[.03,-.135],[-.02,-.13],[-.042,-.06],[-.038,-.03]],.014,PL);B(g,.006,.02,.006,K,0,-.045,-.01,.25);
+    P(g,[[.085,-.042],[.15,-.044],[.155,-.12],[.09,-.118]],.026,0x262626);B(g,.03,.008,.07,K,0,-.124,.122);
+    C(g,.011,.22,K,0,.02,-.38);FH(g,.018,.07,-.52,.02);for(const x of[-.025,.025])B(g,.006,.006,.22,K,x,-.024,-.33,.015);
+    P(g,[[.315,.046],[.315,-.052],[.328,-.054],[.328,.048]],.064,K);return{muz:-.56,hz:-.27,my:.02};},
+  sg553:g=>{const c1=0x48493e,c2=0x6b6448;
+    P(g,[[.1,.04],[.1,-.03],[.085,-.042],[-.22,-.042],[-.22,.04]],.056,c1);P(g,[[.098,.04],[.1,.052],[-.2,.052],[-.21,.04]],.05,K);
+    B(g,.03,.008,.008,K,.03,.03,-.14);B(g,.01,.02,.01,K,.046,.034,-.14);
+    P(g,[[-.22,.04],[-.22,-.035],[-.24,-.042],[-.43,-.036],[-.445,-.02],[-.445,.04]],.064,c2);for(let i=0;i<4;i++)B(g,.0645,.018,.014,0x3e3a2a,0,.005,-.27-i*.04);
+    C(g,.012,.3,K,0,.02,-.58);C(g,.009,.08,K,0,.052,-.48);FH(g,.016,.05,-.74,.02);
+    SCOPE(g,.1,-.08,.2,.032,K,.052);
+    P(g,CMAG(-.12,-.042,.058,.19,.4,8),.048,0x34352d);
+    RGRIP(g,PL,.05,-.042,.105,.32);RTG(g,K,.02,-.078,-.042,.03);SKEL(g,c1);return{muz:-.765,hz:-.33,my:.02};},
+  aug:g=>{const c=0x56623f;
+    P(g,[[.35,.035],[.362,-.03],[.35,-.065],[.18,-.062],[.13,-.03],[-.12,-.03],[-.165,-.022],[-.172,.03],[-.14,.044],[.3,.044]],.07,c);
+    P(g,[[-.172,.03],[-.172,-.02],[-.29,-.012],[-.3,0],[-.3,.022],[-.29,.03]],.06,c);B(g,.0705,.004,.3,0x3d4630,0,.0,.1);
+    C(g,.012,.24,K,0,.01,-.41);FH(g,.016,.05,-.55,.01);
+    P(g,[[.1,.044],[.085,.08],[-.13,.08],[-.15,.044]],.04,c);
+    C(g,.022,.26,K,0,.103,-.02);C(g,.03,.05,K,0,.103,-.165,.022);C(g,.025,.003,MAT_GLASS,0,.103,-.191);C(g,.019,.003,MAT_GLASS,0,.103,.111);
+    P(g,[[.015,-.03],[.052,-.03],[.065,-.13],[.025,-.136]],.036,c);
+    P(g,[[-.075,-.03],[-.09,-.12],[-.06,-.155],[.04,-.155],[.04,-.138],[-.05,-.138],[-.068,-.118],[-.058,-.03]],.016,c);
+    P(g,[[-.16,-.02],[-.195,-.02],[-.205,-.13],[-.19,-.142],[-.172,-.13]],.034,c);
+    B(g,.006,.02,.006,K,0,-.045,-.02,.25);P(g,CMAG(.125,-.062,.06,.1,.12,4),.026,MAT_T);
+    B(g,.072,.095,.01,K,0,-.015,.36);return{muz:-.575,hz:-.18,my:.01};},
+  awp:g=>{
+    P(g,[[-.47,.026],[-.482,0],[-.47,-.022],[-.44,-.038],[-.005,-.038],[.02,-.06],[.058,-.132],[.112,-.132],[.122,-.1],[.2,-.072],[.43,-.09],[.468,-.112],[.468,.072],[.44,.078],[.25,.06],[.2,.04],[.14,.028],[.1,.026]],.056,GR,0,
+      [[[.115,.016],[.088,-.055],[.112,-.09],[.185,-.055],[.18,.01]]]);
+    P(g,[[.468,.072],[.468,-.112],[.484,-.114],[.484,.074]],.058,K);
+    for(let i=0;i<4;i++)B(g,.0565,.012,.035,0x2c3622,0,-.01,-.16-i*.07);
+    C(g,.024,.27,K,0,.045,-.03);B(g,.045,.008,.008,K,.045,.05,.07);{const s=new THREE.Mesh(new THREE.SphereGeometry(.012,10,8),met(K));s.position.set(.07,.05,.07);g.add(s);}
+    P(g,[[-.03,-.038],[-.03,-.075],[-.1,-.075],[-.1,-.038]],.04,K);RTG(g,K,.01,-.05,-.038,.026);
+    C(g,.017,.26,K,0,.03,-.3);C(g,.013,.54,K,0,.03,-.7);C(g,.021,.07,K,0,.03,-1.0);for(const z of[-.99,-1.012])B(g,.044,.008,.012,0x080808,0,.03,z);
+    SCOPE(g,.122,-.07,.36,.044,K,.068);return{muz:-1.04,hz:-.34};},
+  ssg08:g=>{const c=0x2d3237;
+    P(g,[[-.42,.02],[-.43,0],[-.42,-.02],[-.39,-.032],[-.005,-.032],[.02,-.055],[.055,-.125],[.105,-.128],[.112,-.1],[.15,-.062],[.385,-.08],[.415,-.095],[.415,.045],[.39,.05],[.15,.024],[.1,.022]],.05,c,0,
+      [[[.2,-.04],[.36,-.058],[.37,.002],[.21,.005]]]);
+    P(g,[[.415,.045],[.415,-.095],[.428,-.097],[.428,.048]],.052,K);
+    C(g,.02,.25,K,0,.04,-.03);B(g,.04,.008,.008,K,.04,.045,.07);{const s=new THREE.Mesh(new THREE.SphereGeometry(.01,10,8),met(K));s.position.set(.062,.045,.07);g.add(s);}
+    P(g,[[-.03,-.032],[-.03,-.062],[-.09,-.062],[-.09,-.032]],.036,K);RTG(g,K,.01,-.05,-.032,.026);
+    C(g,.013,.3,K,0,.025,-.3);for(let i=0;i<4;i++)B(g,.0265,.0025,.26,0x0a0a0a,0,.025,-.3,0,0,i*Math.PI/4);C(g,.011,.5,K,0,.025,-.7);C(g,.016,.05,K,0,.025,-.96);
+    SCOPE(g,.105,-.07,.3,.034,K,.06);return{muz:-.98,hz:-.33,my:.025};},
+  g3sg1:g=>{
+    P(g,[[.12,.042],[.12,-.03],[.1,-.042],[-.245,-.042],[-.245,.042],[-.2,.05],[.08,.05]],.056,K);B(g,.0565,.004,.3,0x101010,0,.02,-.06);
+    P(g,[[-.25,.035],[-.25,-.035],[-.27,-.04],[-.5,-.034],[-.51,-.02],[-.51,.03],[-.5,.04],[-.27,.04]],.064,K2);for(let i=0;i<6;i++)B(g,.0645,.016,.008,0x0c0c0c,0,0,-.29-i*.035);
+    C(g,.012,.26,K,0,.052,-.37);B(g,.04,.008,.008,K,-.03,.06,-.28,0,0,-.3);
+    C(g,.013,.32,K,0,.02,-.66);FH(g,.018,.07,-.83,.02);
+    P(g,[[.12,.034],[.12,-.03],[.3,-.06],[.43,-.08],[.45,-.08],[.45,.05],[.42,.055],[.2,.05],[.15,.046]],.052,PL);
+    P(g,[[.2,.05],[.22,.075],[.38,.075],[.4,.055]],.04,PL);P(g,[[.45,.05],[.45,-.08],[.462,-.082],[.462,.052]],.054,K);
+    RGRIP(g,PL,.05,-.042,.105,.32);RTG(g,K,.02,-.07,-.042,.028);
+    P(g,[[-.07,-.042],[-.075,-.12],[-.13,-.115],[-.128,-.042]],.04,K);for(let i=0;i<3;i++)B(g,.041,.004,.05,0x0c0c0c,0,-.06-i*.018,-.1);
+    SCOPE(g,.112,-.08,.3,.036,K,.05);return{muz:-.87,hz:-.38,my:.02};},
+  scar20:g=>{
+    P(g,[[.09,.072],[.095,.012],[-.33,.012],[-.48,.006],[-.49,.02],[-.49,.062],[-.33,.072]],.056,TAN);RAIL(g,0,.076,-.18,.5);B(g,.0565,.004,.3,0x7d6c4e,0,.035,-.33);
+    P(g,[[.085,.012],[.085,-.028],[.065,-.04],[-.04,-.04],[-.07,-.034],[-.14,-.034],[-.15,.012]],.05,K);
+    P(g,[[-.068,-.03],[-.07,-.065],[-.138,-.065],[-.142,-.03]],.046,K);B(g,.03,.012,.012,K,-.035,.045,-.2);
+    C(g,.013,.3,K,0,.035,-.64);C(g,.019,.065,K,0,.035,-.82);for(const z of[-.81,-.83])B(g,.04,.008,.01,0x080808,0,.035,z);
+    P(g,[[.09,.066],[.38,.066],[.4,.055],[.4,-.068],[.375,-.08],[.33,-.045],[.2,-.02],[.09,-.012]],.05,TAN,0,[[[.16,.04],[.33,.04],[.33,-.022],[.2,0]]]);
+    P(g,[[.4,.056],[.4,-.068],[.412,-.07],[.412,.058]],.052,K);
+    RGRIP(g,K,.055,-.04,.105,.32);RTG(g,K,.025,-.062,-.04,.026);
+    P(g,[[-.073,-.06],[-.075,-.12],[-.133,-.118],[-.135,-.06]],.03,K);
+    SCOPE(g,.125,-.1,.3,.036,K,.08);return{muz:-.86,hz:-.39};},
+  glock:g=>({muz:PST(g,{slide:0x1c1d1f,frame:PL,grip:PL,len:.19,a:.34,rail:1}),kind:'pistol',my:.035}),
+  usps:g=>({muz:PST(g,{slide:0x2a2c2f,frame:0x1d1e20,grip:0x1d1e20,len:.2,hm:1,rail:1,sil:1}),kind:'pistol',my:.035}),
+  p2000:g=>({muz:PST(g,{slide:0x2b2d30,frame:0x1d1e20,grip:0x1d1e20,len:.18,hm:1,rail:1}),kind:'pistol',my:.035}),
+  p250:g=>({muz:PST(g,{slide:0x3c3f42,frame:0x1c1c1c,grip:0x1c1c1c,len:.18,rail:1}),kind:'pistol',my:.035}),
+  fiveseven:g=>({muz:PST(g,{slide:0x2c2f30,frame:0x3b3e33,grip:0x3b3e33,len:.2,h:.03,w:.95,rail:1,gl:.115}),kind:'pistol',my:.033}),
+  cz75:g=>({muz:PST(g,{slide:0x8c8e90,frame:0x1d1d1d,grip:0x2a1c14,len:.19,ext:1,hm:1}),kind:'pistol',my:.035}),
+  deagle:g=>{const m=PST(g,{slide:SV2,frame:SV,grip:0x1c1c1c,len:.26,h:.05,w:1.2,hm:1,a:.26,gd:.05});B(g,.014,.005,.2,SV,0,.069,-.11);B(g,.0435,.0025,.24,0x6a6c6f,0,.048,-.09);return{muz:m,kind:'pistol',my:.043};},
+  r8:g=>{P(g,[[.045,0],[.05,.042],[.036,.058],[-.072,.058],[-.076,.046],[-.076,-.004],[-.05,-.012],[-.054,-.03],[-.046,-.046],[-.012,-.048],[0,-.038],[.012,-.02]],.028,K,0,
+      [[[-.046,-.016],[-.047,-.03],[-.04,-.041],[-.013,-.042],[-.004,-.033],[-.006,-.016]]]);
+    C(g,.026,.054,K2,0,.023,-.04,undefined,12);for(let i=0;i<6;i++){const t=i/6*6.283+.26;B(g,.006,.004,.044,0x0c0c0c,Math.cos(t)*.025,.023+Math.sin(t)*.025,-.04,0,0,t);}
+    C(g,.012,.17,K,0,.042,-.16);C(g,.0065,.004,0x040404,0,.042,-.246);P(g,[[-.076,.04],[-.076,.012],[-.235,.022],[-.245,.03],[-.245,.04]],.02,K);
+    B(g,.012,.01,.16,K2,0,.057,-.16);B(g,.004,.012,.008,K,0,.066,-.235);B(g,.014,.006,.01,K,0,.062,.03);
+    P(g,[[.042,.035],[.056,.05],[.062,.046],[.05,.022]],.008,K2);B(g,.006,.02,.006,K2,0,-.025,-.025,.35);
+    P(g,[[.012,-.02],[.03,-.07],[.04,-.12],[.085,-.125],[.08,-.09],[.06,-.03],[.05,0],[.045,0]],.036,BR);return{muz:-.26,kind:'pistol',my:.042};},
+  tec9:g=>{P(g,[[.062,.05],[.062,-.008],[-.125,-.008],[-.132,.004],[-.132,.05]],.04,K2);for(let i=0;i<5;i++)B(g,.0405,.006,.003,0x101010,0,.03,.05-i*.007);
+    B(g,.012,.014,.01,K,-.026,.034,-.06);B(g,.008,.01,.008,K,0,.056,-.12);B(g,.016,.008,.008,K,0,.054,.05);
+    C(g,.018,.13,K,0,.028,-.197,undefined,10);for(let i=0;i<5;i++){B(g,.0375,.009,.012,0x080808,0,.028,-.15-i*.022);B(g,.009,.0375,.012,0x080808,0,.028,-.15-i*.022);}
+    C(g,.008,.02,K,0,.028,-.272);C(g,.005,.003,0x040404,0,.028,-.283);
+    P(g,[[-.082,-.008],[-.122,-.008],[-.126,-.175],[-.09,-.178]],.028,K);B(g,.032,.01,.045,0x151515,0,-.181,-.108);
+    P(g,[[-.074,-.008],[0,-.008],[.012,-.025],[.004,-.05],[-.065,-.05],[-.074,-.035]],.012,K2,0,[[[-.066,-.014],[-.005,-.014],[0,-.026],[-.004,-.044],[-.062,-.044],[-.066,-.032]]]);
+    B(g,.006,.02,.006,K,0,-.026,-.035,.25);
+    P(g,[[0,-.008],[.06,-.008],[.09,-.12],[.05,-.13],[.035,-.09]],.035,PL);for(let i=0;i<5;i++)B(g,.0355,.0022,.045,0x0e0e0e,0,-.035-i*.018,.04+i*.0055,-.35);
+    return{muz:-.285,kind:'pistol',my:.028};},
+  dualies:g=>{let m=0;for(const ox of[0,-.3])m=PST(g,{slide:SV,frame:0x2a2a2a,grip:0x1c1c1c,len:.2,ox,open:1,hm:1});return{muz:m,kind:'dual',my:.035};},
   mac10:g=>{B(g,.05,.1,.27,K2,0,.02,-.06);B(g,.04,.012,.2,K,0,.075,-.06);C(g,.012,.06,K,0,.04,-.22);B(g,.04,.12,.05,PL,0,-.08,0,-.1);B(g,.032,.12,.045,K,0,-.19,.015,-.1);TG(g,K,-.04);
     B(g,.005,.005,.24,K,.022,.08,.06);B(g,.005,.005,.24,K,-.022,.08,.06);B(g,.05,.005,.03,K,0,.08,.18);B(g,.008,.008,.06,0x6a5a3a,.028,.03,-.06);return{muz:-.25,hz:-.13,my:.04};},
   mp9:g=>{B(g,.045,.07,.28,PL,0,.02,-.06);RAIL(g,0,.058,-.08,.18);C(g,.011,.07,K,0,.03,-.23);B(g,.03,.08,.03,PL,0,-.05,-.15);B(g,.035,.11,.045,PL,0,-.07,0,-.12);B(g,.028,.1,.04,K,0,-.17,.012,-.12);TG(g,PL,-.04);
@@ -1296,18 +1439,6 @@ const GUN_BUILD={
   negev:g=>{B(g,.07,.1,.36,K2,0,.01,-.06);RAIL(g,0,.064,-.06,.3);C(g,.016,.42,K,0,.03,-.48);C(g,.026,.25,K,0,.03,-.38,undefined,10);C(g,.019,.05,K,0,.03,-.71);
     B(g,.07,.11,.13,K,0,-.09,-.06);B(g,.008,.008,.25,K,.022,-.02,-.5);B(g,.008,.008,.25,K,-.022,-.02,-.5);GRIP(g,PL,0,.08);TG(g,K,.04);
     B(g,.05,.03,.25,K,0,.02,.3);B(g,.05,.03,.22,K,0,-.06,.3,.12);B(g,.055,.12,.025,K,0,-.02,.42);return{muz:-.74,hz:-.32};},
-  glock:g=>({muz:PISTOL(g,{slide:0x1c1d1f,frame:PL,grip:PL,len:.19}),kind:'pistol',my:.035}),
-  usps:g=>({muz:PISTOL(g,{slide:0x2a2c2f,frame:0x1d1e20,grip:0x1d1e20,len:.2,sil:1}),kind:'pistol',my:.035}),
-  p2000:g=>({muz:PISTOL(g,{slide:0x2b2d30,frame:0x1d1e20,grip:0x1d1e20,len:.18}),kind:'pistol',my:.035}),
-  p250:g=>({muz:PISTOL(g,{slide:0x3c3f42,frame:0x1c1c1c,grip:0x1c1c1c,len:.18}),kind:'pistol',my:.035}),
-  fiveseven:g=>({muz:PISTOL(g,{slide:0x2c2f30,frame:0x3b3e33,grip:0x3b3e33,len:.2,h:.03}),kind:'pistol',my:.035}),
-  cz75:g=>({muz:PISTOL(g,{slide:0x8c8e90,frame:0x1d1d1d,grip:0x2a1c14,len:.19,ext:1}),kind:'pistol',my:.035}),
-  deagle:g=>{B(g,.036,.05,.26,SV2,0,.042,-.085);B(g,.03,.02,.24,SV2,0,.07,-.095);B(g,.034,.028,.2,SV,0,.004,-.07);B(g,.038,.12,.055,0x1c1c1c,0,-.055,.04,-.25);
-    B(g,.009,.009,.06,SV,0,-.018,-.04);B(g,.009,.028,.009,SV,0,-.006,-.07);for(let i=0;i<4;i++)B(g,.037,.04,.004,0x555555,0,.042,.03-i*.009);B(g,.008,.014,.008,K,0,.086,-.2);return{muz:-.215,kind:'pistol',my:.042};},
-  r8:g=>{B(g,.034,.05,.12,K,0,.02,-.02);C(g,.03,.06,K2,0,.022,-.05,undefined,10);C(g,.012,.18,K,0,.04,-.17);B(g,.016,.02,.18,K,0,.056,-.17);B(g,.035,.11,.05,BR,0,-.06,.04,-.35);B(g,.012,.02,.02,K,0,.05,.04);TG(g,K,-.02);return{muz:-.26,kind:'pistol',my:.04};},
-  tec9:g=>{B(g,.04,.06,.2,K2,0,.02,-.05);C(g,.018,.12,K,0,.028,-.2,undefined,10);for(let i=0;i<4;i++)B(g,.038,.008,.008,0x0e0e0e,0,.028,-.16-i*.025);
-    B(g,.03,.17,.04,K,0,-.08,-.1);B(g,.035,.1,.045,PL,0,-.06,.04,-.25);TG(g,K,-.02);return{muz:-.26,kind:'pistol',my:.028};},
-  dualies:g=>{let m=0;for(const ox of[0,-.3]){m=PISTOL(g,{slide:SV,frame:0x2a2a2a,grip:0x1c1c1c,len:.2,ox});C(g,.008,.05,K2,ox,.04,-.13);}return{muz:m,kind:'dual',my:.035};},
   // Butterfly knife (CS2): two skeletonised handle halves with slots, pivot pins, latch, clip-point blade
   knife:g=>{const HC=0x1d1f22,PIN=0x8d9196,BL=0xb9bdc1,ED=0xe9edf0;
     for(const x of[-.0085,.0085]){B(g,.007,.008,.13,HC,x,.013,.035);B(g,.007,.008,.13,HC,x,-.013,.035);
@@ -1482,7 +1613,7 @@ function buyBlock(e,it){
   if(it.k==='vest')return e.armor>=100?'Броня уже полная':'';
   if(it.k==='vesthelm')return e.armor>=100&&e.helmet?'Броня и шлем уже есть':'';
   if(it.k==='kit')return e.kit?'Набор уже есть':'';
-  if(it.k==='zeus')return e.zeus?'Zeus уже есть':'';
+  if(it.k==='zeus')return e.zeus?'Шокер уже есть':'';
   if(it.k==='primammo')return !e.prim?'Нет основного оружия':e.prim.reserve>=WEAPONS[e.prim.id].reserve?'Патроны уже полные':'';
   if(it.k==='secammo')return !e.sec?'Нет пистолета':e.sec.reserve>=WEAPONS[e.sec.id].reserve?'Патроны уже полные':'';
   const w=WEAPONS[it.k];
@@ -2536,7 +2667,7 @@ function renderInv(h){
   const rows=[];
   if(h.prim)rows.push([1,WEAPONS[h.prim.id].name,h.slot===1]);
   if(h.sec)rows.push([2,WEAPONS[h.sec.id].name,h.slot===2]);
-  rows.push([3,h.zeus?(h.slot===6?'Zeus x27':WEAPONS.knife.name+' · Zeus'):WEAPONS.knife.name,h.slot===3||h.slot===6]);
+  rows.push([3,h.zeus?(h.slot===6?WEAPONS.zeus.name:WEAPONS.knife.name+' · шокер'):WEAPONS.knife.name,h.slot===3||h.slot===6]);
   if(h.nades.length){const cur=h.slot===4?h.nades[h.nadeIdx%h.nades.length]:null;rows.push([4,h.nades.map(n=>(n===cur?'› ':'')+WEAPONS[n].name).join(' · '),h.slot===4]);}
   if(carrying(h))rows.push([5,'C4',h.slot===5,'c4'+(siteAt(h.pos)?' flash':'')]);
   const sig=JSON.stringify(rows);if(sig===invSig)return;invSig=sig;
@@ -2589,10 +2720,57 @@ function boardHTML(live){
 }
 function addFeed(a,v,wid,hs){
   if(DBG.kills&&a)DBG.kills.push([a.id,v.id,wid,+Math.hypot(a.pos.x-v.pos.x,a.pos.z-v.pos.z).toFixed(1),[+v.pos.x.toFixed(0),+v.pos.z.toFixed(0)],v.ai?(v.ai.visible?1:0):-1,v.ai&&v.ai.target?v.ai.target.id:"",+G.roundT.toFixed(0)]);
-  const kf=$('killfeed');const d=document.createElement('div');d.className='kf'+((a===G.human||v===G.human)?' me':'');
+  const kf=$('killfeed');const d=document.createElement('div');const me=a===G.human||v===G.human;
+  d.className='kf'+(a===G.human&&v!==G.human?' mine':'')+(v===G.human?' died':'');
   const nm=e=>`<span class="${e.team==='CT'?'cct':'ctt'}">${esc(e.name)}</span>`;
-  d.innerHTML=(a&&a!==v?nm(a):'')+`<span class="w">${esc(wid==='c4'?'C4':(WEAPONS[wid]||WEAPONS.knife).name)}</span>`+(hs?'<span class="hs">HS</span>':'')+nm(v);
-  kf.appendChild(d);while(kf.children.length>5)kf.firstChild.remove();setTimeout(()=>d.remove(),6000);
+  const smoked=a&&a!==v&&smokes.some(s=>segCircle(a.pos.x,a.pos.z,v.pos.x,v.pos.z,s.x,s.z,s.r));
+  d.innerHTML=(a&&a!==v?nm(a):'')+kfIcon(wid)+(smoked?KF_X.smoke:'')+(hs?KF_X.hs:'')+nm(v);
+  kf.appendChild(d);while(kf.children.length>5)kf.firstChild.remove();
+  const life=me?9000:6000;setTimeout(()=>d.classList.add('out'),life-400);setTimeout(()=>d.remove(),life);
+}
+/* killfeed icons in CS2 style: silhouettes built from the weapon's category and view-model flags, so renaming weapons keeps them */
+const KF_SHAPE={
+  pistol:[28,'<path d="M0 3h27v5H14l-1 3H9l-1 7H2l1-9-3-1z"/>',5.5],
+  big:[32,'<path d="M0 2h31v6H15l-1 3h-4l-1 7H2l1-9-3-1z"/>',5],
+  dual:[38,'<path d="M0 3h27v5H14l-1 3H9l-1 7H2l1-9-3-1z"/><path stroke="rgba(0,0,0,.7)" stroke-width="1.2" d="M10 6h27v5H24l-1 3h-4l-1 6h-6l1-8-3-1z"/>',8.5],
+  smg:[44,'<path d="M0 5h8v2H3v3h5v2H0zM8 4h26v2h10v2H34v2H20l-2 1-1 6h-5l1-7H8z"/><path d="M22 10h5v9h-5z"/>',7],
+  shotgun:[66,'<path d="M0 7l14-1 2 1V5h14v2h36v2H52v2H50v1H38v-1h-8v1H23l-2 5h-4l1-5-12 4H0z"/>',6],
+  sawed:[46,'<path d="M3 7l9-1h4V5h14v2h16v2H38v2H30v1H23l-2 5h-4l1-5-7 2H5z"/>',6],
+  rifle:[64,'<path d="M0 6l14-1V4h4V2h4v2h20v1h10V2h2v4h10v2H54v1H42v1H34l2 7-5 2-3-9h-3l-2 6h-4l1-6h-3l-10 5H0z"/>',6],
+  bullpup:[54,'<path d="M2 4h38v2h14v2H40v4H31l-2 6h-4l1-6h-9l-2 6H9l1-6H2l-2-3z"/>',6],
+  sniper:[72,'<path d="M0 6l16-1h2V5h28v1h26v2H46v2H36v4h-5v-4h-4l-2 6h-4l1-6h-3l-10 4H0z"/><path d="M22 1h18v3h-3v1h-2V4h-8v1h-2V4h-3z"/>',6],
+  mg:[70,'<path d="M0 6l14-1h2V3h10V1h8v2h10v2h22V4h4v4h-4V7H58l2 9h-1l-3-9H44v4h-3l-2 6h-4l1-6h-2v7H24v-7h-8L4 15H0z"/>',5],
+  knife:[40,'<path d="M0 8h16V6h2v2h16l6 1-6 3H18v2h-2v-2H0z"/>'],
+  he:[16,'<circle cx="8" cy="12.5" r="6.5"/><path d="M5 2h6v4H5zM11 3h4v2h-4z"/>'],
+  flash:[14,'<path d="M3 5h8v14H3zM4 1h6v3H4zM10 2h3v2h-3z"/>'],
+  smoke:[15,'<path d="M2 5h11v14H2zM4 1h7v3H4zM11 2h3v2h-3z"/>'],
+  molotov:[14,'<path d="M5 3h4v4l3 3v10H2V10l3-3zM6 0h2v3H6z"/>'],
+  zeus:[30,'<path d="M0 4h22l7 2v3H13l-1 3H9l-1 6H3l1-8-4-2z"/>'],
+  c4:[28,'<path d="M1 5h26v13H1zM4 2h4v3H4z"/>'],
+  skull:[18,'<path fill-rule="evenodd" d="M9 1a8 8 0 0 1 8 8c0 2.5-1 4-2.5 5v4h-11v-4C2 13 1 11.5 1 9a8 8 0 0 1 8-8zM5.5 7.5a2 2 0 1 0 0 4 2 2 0 1 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 1 0 0-4z"/>']
+};
+const KF_X={
+  hs:'<svg class="x" viewBox="0 0 18 20" width="14.4" height="16"><path fill-rule="evenodd" d="M9 1a7 7 0 0 1 7 7c0 2.6-1.3 4.6-3 5.6V19H5v-5.4C3.3 12.6 2 10.6 2 8a7 7 0 0 1 7-7zm2.5 4a2 2 0 1 0 0 4 2 2 0 1 0 0-4z"/><path d="M13 7h5v1h-5z"/></svg>',
+  smoke:'<svg class="x" viewBox="0 0 24 20" width="19.2" height="16"><path d="M6 18a5 5 0 0 1-.6-10A6 6 0 0 1 17 6.5a5.8 5.8 0 0 1 1 11.5z"/></svg>'
+};
+function kfShape(wid){
+  if(wid==='c4')return'c4';const w=WEAPONS[wid];if(!w)return'skull';const vm=w.vm||{};
+  if(KF_SHAPE[wid])return wid;if(w.cat==='melee')return'knife';if(w.zeus)return'zeus';
+  if(w.nade)return wid==='he'?'he':wid==='molotov'?'molotov':(wid==='smoke'||wid==='decoy')?'smoke':'flash';
+  if(vm.k==='dual')return'dual';if(w.cat==='pistol')return vm.big?'big':'pistol';
+  if(w.cat==='smg')return'smg';if(w.cat==='sniper')return'sniper';
+  if(w.pellets)return w.len<.75?'sawed':'shotgun';if(w.cat==='heavy')return'mg';
+  return vm.stock===false?'bullpup':'rifle';
+}
+function kfIcon(wid){
+  const k=kfShape(wid),[wd,body,by]=KF_SHAPE[k],vm=(WEAPONS[wid]||{}).vm||{};let vw=wd,x='';
+  if(vm.scope&&k!=='sniper')x+=`<path d="M${wd*.3} 0h${wd*.32}v3h-${wd*.32}z"/>`;
+  if(vm.sil&&by){x+=`<rect x="${wd-1}" y="${by-2.5}" width="13" height="5" rx="1"/>`;vw+=12;}
+  return`<svg viewBox="0 0 ${vw} 20" width="${(vw*.9).toFixed(1)}" height="18">${body}${x}</svg>`;
+}
+function segCircle(ax,az,bx,bz,cx,cz,r){
+  const dx=bx-ax,dz=bz-az,l2=dx*dx+dz*dz||1,t=clamp(((cx-ax)*dx+(cz-az)*dz)/l2,0,1);
+  return Math.hypot(ax+dx*t-cx,az+dz*t-cz)<r*.85;
 }
 const radar=$('radar'),rctx=radar.getContext('2d'),RS=radar.width;
 function drawRadar(){
